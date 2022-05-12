@@ -3,6 +3,9 @@
 ## 预备知识
 - [pthread.h库的使用](https://blog.csdn.net/lileiyuyanqin/article/details/78212305
 )
+- [memcpy()函数](https://www.cplusplus.com/reference/cstring/memcpy/)
+
+- [sort()函数的使用](https://www.cplusplus.com/reference/algorithm/sort/?kw=sort)
 
 ## 线程的优点
 - 及时响应——部分线程被阻塞，其他可继续执行(对用户界面尤其重要)
@@ -20,15 +23,16 @@
         p_argv *p;
         int main()
         {
-            p->list = {1,2,3};
+            int a[3] = {1,2,3} ;
+            memcpy(p->list,a,sizeof(a));
             return 0;
         }
 
 &emsp; &emsp; 这会产生报错：
 &emsp; &emsp;“assigning to an array from an initializer list”
 
-&emsp; &emsp;解决方案：
-&emsp; &emsp;将int list[3]定义为int *list,把初始值传给一个临时数组，把数组指针在赋给q->list即可
+&emsp; &emsp;原因：结构体指针需要初始化内存，否则指向的是0x0的地址，之后赋值会产生段错误
+&emsp; &emsp;解决方案：用malloc函数分配内存
 
 
 
